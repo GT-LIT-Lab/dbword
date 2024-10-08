@@ -1,6 +1,7 @@
 import requests
 import zipfile
 from dbword import SUBTLEX_PATH
+import pickle
 
 def download(db:str, verbose:bool=True):
     """Download database to root directory
@@ -39,4 +40,37 @@ def download(db:str, verbose:bool=True):
         if verbose:
             print(f"File unzipped and saved as data/SUBTLEXus74286wordstextversion.txt")
 
-            
+def convert_subtlex_to_pickle(path:str, verbose:bool=False):
+    """Convert downloaded Subtlex file into pickle
+    
+    Parameters
+    ----------
+    path: str
+        Path to .txt file
+        
+    Returns
+    -------
+    subtlex: dict
+        Dictionary of Subtlex database
+    """
+
+    # store data
+    subtlex = {} 
+
+    with open(path, 'r') as file:
+       
+        # this will skip the headers
+        header = file.readline().strip().split('\t')
+        
+        # create the dict
+        subtlex = {
+            line.split('\t')[0]: [float(value) for value in line.split('\t')[1:]]
+            for line in file
+        }
+
+        # Save as .pkl 
+        with open('subtlex-us.pkl', 'wb') as pkl_file:
+            pickle.dump(subtlex, pkl_file)
+
+        if verbose:
+            print("Data has been saved as 'subtlex_data.pkl'")
