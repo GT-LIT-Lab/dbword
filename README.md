@@ -1,7 +1,7 @@
 # dbword
 Interacting with word-statistic databases
 
-Currently, `dbword` supports access to the [Subtlex-US](https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus) data. More to follow. 
+Currently, `dbword` supports access to the [Subtlex-US](https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus) data and [Kuperman](https://link.springer.com/article/10.3758/s13428-012-0210-4#Sec4) AoA ratings. More to follow. 
 
 # Installation
 
