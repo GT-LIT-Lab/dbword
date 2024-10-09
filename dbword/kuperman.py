@@ -5,7 +5,7 @@ import pandas as pd
 
 @dataclass
 class Kuperman(object):
-    """Access Subtlex-US database"""
+    """Access Kuperman database"""
 
     # load database
     database: dict = field(init=False, default=None)
