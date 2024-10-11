@@ -43,7 +43,6 @@ class Subtlex(object):
 
         return self
 
-    @property
-    def to_panda(self):
+    def to_pandas(self):
         """Convert to pandas dataframe"""
         return pd.DataFrame(self.data).transpose()

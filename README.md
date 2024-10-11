@@ -20,7 +20,7 @@ words = ["hello", "screen", "jog"]
 
 S = Subtlex(words).extract()
 
-S.to_panda
+S.to_pandas()
 ```
 ## Example output
 |        |   FREQcount |   CDcount |   FREQlow |   Cdlow |   SUBTLWF |   Lg10WF |   SUBTLCD |   Lg10CD |

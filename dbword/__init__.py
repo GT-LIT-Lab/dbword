@@ -10,13 +10,13 @@ def check_subtlex() -> bool:
     return os.path.isfile(SUBTLEX_PATH)
     
 if not check_subtlex():
-    warnings.warn("Database not found \n Try running dbword.utils.download(<database>)", UserWarning)
+    warnings.warn("Subtlex database not found \n Try running dbword.utils.download('subtlex')", UserWarning)
 
 def check_kuperman() -> bool:
     """Check if database exists in root""" 
     return os.path.isfile(KUPERMAN_PATH)
 
 if not check_kuperman():
-    warnings.warn("Database not found \n Try running dbword.utils.download(<database>)", UserWarning)
+    warnings.warn("Kuperman database not found \n Try running dbword.utils.download('kuperman')", UserWarning)
     
-__all__ = ['subtlex']
+__all__ = ['Subtlex', 'Kuperman']
