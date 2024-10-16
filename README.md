@@ -6,9 +6,7 @@ Currently, `dbword` supports access to the [Subtlex-US](https://www.ugent.be/pp/
 # Installation
 
 ```bash
-git clone https://github.com/GT-LIT-Lab/dbword.git
-cd dbword
-pip install .
+pip install git+https://github.com/GT-LIT-LAB/dbword.git
 ```
 
 # Usage
