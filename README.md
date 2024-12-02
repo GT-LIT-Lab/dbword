@@ -63,6 +63,33 @@ You can use `pandas` to convert the dataframe to whatever necessary format you w
 S.to_pandas().to_csv(path='words.csv')
 ```
 
+## Preprocessing large text
+
+`dbword` also allows you to parse a large string should you need to extract word-level statistics from a paragraph or more of text. 
+
+```python
+from dbword.preprocess import preprocess
+
+text = """
+Louisiana is a state in the southeastern region of the United States. It is the 19th-smallest by area and the 25th most populous of the 50 U.S. states. Louisiana is bordered by the state of Texas to the west, Arkansas to the north, Mississippi to the east, and the Gulf of Mexico to the south. A large part of its eastern boundary is demarcated by the Mississippi River. Louisiana is the only U.S. state with political subdivisions termed parishes, which are equivalent to counties. The state's capital is Baton Rouge, and its largest city is New Orleans.
+"""
+
+words = preprocess(text)
+```
+
+This function returns a list of strings, which is the data type required by `dbword`. But `preprocess()` does more than this. In total, `preprocess()`:
+
+1. Parses a piece of text into a list of strings (`list[str]`). This is carried out with an internal function called `listify()`.
+2. Removes punctuation. This is carried out with an internal function call `rm_punct()`. 
+3. Removes invalid elements like hyphenated words and numbers. This is carried out with an internal function called `rm_invalid()`. 
+4. Removes duplicate elements. This is carried out with an internal function called `consolidate()`.
+
+> [!NOTE] 
+> All internal functions mentioned above are located within the `preprocessing` module. You can import these individually to support specific preprocessing needs. 
+
+> [!CAUTION]  
+> `preprocess()` is intended to serve as a quick work-around for handling text data. As such it may remove important tokens from a given text. If this is an issue, it is recommended that alternative methods be taken to parse your text. Additionally, `preprocess()` may _not_ remove _all_ invalid tokens, in turn causing an error during data extraction. Edge cases like these should be [submitted as an issue](https://github.com/GT-LIT-Lab/dbword/issues/new) to the GitHub repository. 
+
 # Database information
 Each database is automatically installed in the package directory as a `.pkl` file. Run the following code to see each database's file.
 
@@ -78,7 +105,7 @@ os.listdir(os.path.join(PACKAGE_DIR, "data"))
 Each database is type `dict`. This makes indexing (what the program is doing under the hood) very easy and generally not explosive. Based on internal tests, extracting data from 15 words takes approximately **0.02 seconds**. Extracting data from 100 words takes approximately **0.05 seconds**. Extracting data from 10,000 words takes approximately **0.09 seconds**.
 
 ## Install failures
-There shouldn't be any issues with the program downloading and accessing the databases. If there is an problem, an error will display at import with the necessary steps to be taken. Fortuntately, you can install these databases directly from the GitHub repo **[recommended]**:
+There shouldn't be any issues with the program downloading and accessing the databases. If there is a problem, an error will display at import with the necessary steps to be taken. Fortuntately, you can install these databases directly from the GitHub repo **[recommended]**:
 
 ```python
 from dbword.utils import download

@@ -4,6 +4,7 @@ import warnings
 from .config import SUBTLEX_PATH, KUPERMAN_PATH, PACKAGE_DIR
 from .subtlex import Subtlex
 from .kuperman import Kuperman
+from .preprocess import preprocess, consolidate, rm_punct, listify, rm_invalid
 
 def check_subtlex() -> bool:
     """Check if database exists in root""" 
