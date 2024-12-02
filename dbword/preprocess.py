@@ -1,10 +1,14 @@
 """Module for handling preprocessing of text data for `dbword` input types."""
 
 import re
+import nltk
 
-def preprocess(text:str) -> list[str]:
+def preprocess(text:str, by_sent:bool=False) -> list[str]:
     """Preprocesses text data for `dbword` input types."""
-    return consolidate(rm_invalid(rm_punct(listify(text))))
+    if by_sent:
+        return [preprocess(sent) for sent in nltk.sent_tokenize(text)]
+    else:
+        return consolidate(rm_invalid(rm_punct(listify(text))))
 
 def consolidate(text:list[str]) -> list[str]:
     """Removes duplicate words from a list."""
