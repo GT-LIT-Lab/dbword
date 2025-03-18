@@ -1,17 +1,17 @@
-"""Downloading databases
+"""Downloading datasets
 
-The following code handles database reinstallation if the import process fails
+The following code handles dataset reinstallation if the import process fails
 """
 
 import requests
 import zipfile
-from .config import PACKAGE_DIR
+from .datasets import PACKAGE_DIR
 import pickle
 import pandas as pd
 import os
 
-def download(db:str, source:str, verbose:bool=True):
-    """Download database to root directory
+def download(dataset:str, source:str, verbose:bool=True):
+    """Download dataset to root directory
     
     Parameters
     ----------
@@ -22,15 +22,15 @@ def download(db:str, source:str, verbose:bool=True):
     verbose: bool
     """
 
-    if db == 'subtlex':
+    if dataset == 'subtlex':
         _subtlex_us(source, verbose)
 
         if source == 'origin':
-            _unzip(db, verbose)
+            _unzip(dataset, verbose)
             _ = convert_to_pickle(path=os.path.join(PACKAGE_DIR, "data", "SUBTLEXus74286wordstextversion.txt"),
                             fname="subtlex-us", verbose=verbose)
 
-    if db == 'kuperman':
+    if dataset == 'kuperman':
         _kuperman(source, verbose)
 
         if source == "origin":
@@ -39,7 +39,7 @@ def download(db:str, source:str, verbose:bool=True):
 
     if source.lower() == 'origin':
         # clean up unnecessary files
-        _clear_extra(db)
+        _clear_extra(dataset)
 
 def _subtlex_us(source:str, verbose:bool):
 
@@ -111,7 +111,7 @@ def _kuperman(source:str, verbose:bool):
             print(f"File downloaded and saved as {txt_file_path}")       
 
 def convert_to_pickle(path:str, fname:str, verbose:bool=False):
-    """Convert database into pickle
+    """Convert dataset into pickle
     
     Parameters
     ----------
@@ -123,8 +123,8 @@ def convert_to_pickle(path:str, fname:str, verbose:bool=False):
         
     Returns
     -------
-    database: dict
-        Dictionary of Subtlex database
+    dataset: dict
+        Dictionary of Subtlex dataset
     """
 
     assert path.endswith('.txt')
@@ -148,14 +148,14 @@ def convert_to_pickle(path:str, fname:str, verbose:bool=False):
         pickle.dump(data, pkl_file)
 
     if verbose:
-        print(f"Database converted to pickle: '{fname}.pkl'")
+        print(f"dataset converted to pickle: '{fname}.pkl'")
 
-def _clear_extra(db:str):
+def _clear_extra(dataset:str):
     """Remove extra files"""
 
-    if db == "kuperman":
+    if dataset == "kuperman":
         os.remove(os.path.join(PACKAGE_DIR, "data", "kuperman.txt"))
         os.remove(os.path.join(PACKAGE_DIR, "data", "kuperman.xlsx"))
-    elif db == "subtlex":
+    elif dataset == "subtlex":
         os.remove(os.path.join(PACKAGE_DIR, "data", "SUBTLEXus74286wordstextversion.txt"))
         os.remove(os.path.join(PACKAGE_DIR, "data", "subtlexus2.zip"))

@@ -1,13 +1,14 @@
 from dataclasses import dataclass, field
 import pickle
-from .config import SUBTLEX_PATH
+from .datasets import KUPERMAN_PATH, SUBTLEX_PATH, KUPERMAN_HEAD, SUBTLEX_HEAD
 import pandas as pd
 
 @dataclass
-class Subtlex(object):
-    """Access Subtlex-US database"""
+class Database(object):
+    """Database class"""
 
     # load database
+    dataset: str
     database: dict = field(init=False, default=None)
 
     # other attributes
@@ -15,15 +16,21 @@ class Subtlex(object):
     data: dict = field(init=False, default=None)
     
     def __post_init__(self):
-        # Load the .pkl file after the dataclass fields are initialized
-        with open(SUBTLEX_PATH, 'rb') as f:
+        if self.dataset == "subtlex":
+            self.dataset = SUBTLEX_PATH
+            self.headers = SUBTLEX_HEAD
+        elif self.dataset == "kuperman":
+            self.dataset = KUPERMAN_PATH
+            self.headers = KUPERMAN_HEAD
+
+        with open(self.dataset, 'rb') as f:
             self.database = pickle.load(f)
 
     def extract(self):
         """Extract word data"""
 
         # what is each value in the output mean?
-        headers = ["FREQcount","CDcount","FREQlow", "Cdlow", "SUBTLWF",	"Lg10WF", "SUBTLCD", "Lg10CD"]
+        headers = self.headers
 
         data = {}
 

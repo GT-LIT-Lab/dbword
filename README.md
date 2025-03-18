@@ -12,13 +12,13 @@ pip install git+https://github.com/GT-LIT-LAB/dbword.git
 # Usage
 
 ```python
-from dbword import Subtlex
+from dbword import Database
 
 words = ["hello", "screen", "jog"]
 
-S = Subtlex(words).extract()
+D = Database(dataset="subtlex", words=words).extract()
 
-S.to_pandas()
+D.to_pandas()
 ```
 ## Example output
 |        |   FREQcount |   CDcount |   FREQlow |   Cdlow |   SUBTLWF |   Lg10WF |   SUBTLCD |   Lg10CD |
@@ -27,8 +27,8 @@ S.to_pandas()
 | screen |        1193 |       766 |      1152 |     749 |     23.39 |   3.077  |      9.13 |   2.8848 |
 | jog    |         123 |        99 |       110 |      95 |      2.41 |   2.0934 |      1.18 |   2      |
 
-## Domain general attributes
-Both `Subtlex` and `Kuperman` contain the same attributes.
+## Attributes
+`Database` contains the following attributes. 
 
 ```
 - words: list[str]
@@ -41,8 +41,8 @@ Both `Subtlex` and `Kuperman` contain the same attributes.
     Database 
 ```
 
-## Domain general methods
-Both `Subtlex` and `Kuperman` contain the same methods.
+## Methods
+`Database` contains the following methods.
 
 ```
 - extract()
@@ -60,7 +60,7 @@ Both `Subtlex` and `Kuperman` contain the same methods.
 You can use `pandas` to convert the dataframe to whatever necessary format you wish. For example, I can save the output as a `.csv` file with just an additional method call:
 
 ```python
-S.to_pandas().to_csv(path='words.csv')
+D.to_pandas().to_csv(path='words.csv')
 ```
 
 ## Preprocessing large text
@@ -111,7 +111,7 @@ There shouldn't be any issues with the program downloading and accessing the dat
 from dbword.utils import download
 
 # specify the database you wish to install
-download(db='kuperman', source='github')
+download(dataset='kuperman', source='github')
 ```
 Or you can download them directly from the source:
 
@@ -119,7 +119,7 @@ Or you can download them directly from the source:
 from dbword.utils import download
 
 # specify the database you wish to install
-download(db='kuperman', source='origin')
+download(dataset='kuperman', source='origin')
 ```
 
 >[!WARNING]
