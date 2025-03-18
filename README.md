@@ -45,6 +45,12 @@ D.to_pandas()
 `Database` contains the following methods.
 
 ```
+- __add__()
+    Add another word to self.words
+
+- __sub__()
+    Remove a word from self.words
+
 - extract()
     Extract data for each word specified in the words parameter
 
