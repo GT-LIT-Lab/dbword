@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="dbword",
-    version="2.3.1",
+    version="3.0.0",
     author="Will Decker",
     author_email="will.decker@gatech.edu",
     description="Accessing word statistics databases",
