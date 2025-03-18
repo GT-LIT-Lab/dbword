@@ -26,6 +26,20 @@ class Database(object):
         with open(self.dataset, 'rb') as f:
             self.database = pickle.load(f)
 
+    def __add__(self, other):
+        if isinstance(other, list):
+            self.words += other
+        elif isinstance(other, str):
+            self.words.append(other)
+        return self
+
+    def __sub__(self, other):
+        if isinstance(other, list):
+            [self.words.remove(word) for word in other]
+        elif isinstance(other, str):
+            self.words.remove(other)
+        return self
+
     def extract(self):
         """Extract word data"""
 
